@@ -3,6 +3,8 @@ services:
   grafana_graphite:
     build: .
     image: kamon/grafana_graphite
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel
     container_name: kamon-grafana-dashboard
     ports:
       - '80:80'
@@ -13,5 +15,6 @@ services:
     volumes:
       - ./data/whisper:/opt/graphite/storage/whisper
       - ./data/grafana:/opt/grafana/data
+      - ./grafana/plugins/grafana-clock-panel/dist:/opt/grafana/public/app/plugins/panel/grafana-clock-panel
       - ./log/graphite:/opt/graphite/storage/log
       - ./log/supervisor:/var/log/supervisor
